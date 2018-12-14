@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import {Response} from '@angular/http';
+import{HttpClient} from '@angular/common/http'
 
 @Component({
   selector: 'app-root',
@@ -6,5 +8,16 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'API-testing';
+
+  constructor(private http:HttpClient){}
+  userName='';
+ 
+  getrepoData(){
+    this.http.get('https://api.github.com/users/'+this.userName+'/repos')
+    .subscribe(
+     (res:Response)=>{
+       const repoList=res.json();
+       console.log(repoList);
+     } )
+ }
 }
